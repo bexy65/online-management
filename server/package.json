@@ -1,0 +1,18 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend for website",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run dev",
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Naim Naim",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.3.3",
+    "nodemon": "^3.1.0"
+  }
+}
