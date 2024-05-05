@@ -1,6 +1,7 @@
 const ProductModel = require("../model/products");
+const DatabaseClient = require("./db");
 
-class ProductService {
+class ProductService extends DatabaseClient {
   async createProduct(name, description, price, category) {
     try {
       const newProduct = new ProductModel({
