@@ -1,46 +1,42 @@
-const mongoose = require("mongoose");
-const userModel = require("../model/user");
+const DatabaseClient = require("../db/db");
+const UserModel = require("../model/user");
+const bcrypt = require("bcrypt");
+const hashPassword = require("../utilities/util");
 
-class User {
+class User extends DatabaseClient {
   constructor() {
-    this.connectToDatabase();
+    super();
   }
 
-  async connectToDatabase() {
+  async getUser(email) {
     try {
-      await mongoose.connect(process.env.MONGO_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-      console.log("Connected to MongoDB");
+      const user = await UserModel.findOne({ email: email });
+      return user;
     } catch (error) {
-      console.error("Error connecting to MongoDB:", error);
+      throw error;
     }
   }
 
   async createUser(email, password, username) {
     try {
-      const userData = new userModel({
+      const userData = new UserModel({
         username: username,
         email: email,
-        password: password,
+        password: await hashPassword(password),
       });
-
-      console.log("Creating user:", userData);
-
       const savedUser = await userData.save();
-      console.log("User created successfully:", savedUser);
+      return savedUser;
     } catch (error) {
-      console.error("Error creating user:", error);
+      throw error;
     }
   }
 
-  authUser() {
-    // Implementation to authenticate user
-  }
-
-  registerUser() {
-    // Implementation to register user
+  async authUser(email, password) {
+    const user = await this.getUser(email);
+    if (!user) throw err;
+    const isAuth = await bcrypt.compare(password, user.password);
+    if (!isAuth) throw err;
+    return isAuth;
   }
 }
 
