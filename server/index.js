@@ -1,15 +1,22 @@
-const express = require("express");
 require("dotenv").config();
-const User = require("./db/user");
+const express = require("express");
+const cors = require("cors");
+const loginRoute = require("./routes/login");
+const registerRoute = require("./routes/register");
 
 const app = express();
-const userController = new User();
+const port = process.env.PORT;
+app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send(html);
+  res.send("Hello from server");
   console.log("Sended");
 });
-userController.createUser("test@gmail.com", "12341234", "boba");
-app.listen(3000, () => {
-  console.log("Listening on port 3000\n");
+
+app.use(registerRoute);
+app.use(loginRoute);
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}\n`);
 });
