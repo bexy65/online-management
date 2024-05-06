@@ -14,8 +14,9 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
+  imageUrl: String,
 });
 
-const Product = mongoose.model("Product", productSchema);
+const ProductModel = mongoose.model("Product", productSchema);
 
-module.exports = Product;
+module.exports = ProductModel;
