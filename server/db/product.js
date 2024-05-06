@@ -2,13 +2,18 @@ const ProductModel = require("../model/products");
 const DatabaseClient = require("./db");
 
 class ProductService extends DatabaseClient {
-  async createProduct(name, description, price, category) {
+  constructor() {
+    super();
+  }
+
+  async createProduct(name, description, price, category, imageUrl) {
     try {
       const newProduct = new ProductModel({
         name,
         description,
         price,
         category,
+        imageUrl,
       });
       const savedProduct = await newProduct.save();
       return savedProduct;
@@ -19,7 +24,7 @@ class ProductService extends DatabaseClient {
 
   async getProduct(name) {
     try {
-      const product = await ProductModel.findOne(name);
+      const product = await ProductModel.findOne({ name: name });
       return product;
     } catch (error) {
       throw error;
@@ -28,7 +33,7 @@ class ProductService extends DatabaseClient {
 
   async updateProduct(name, newData) {
     try {
-      const product = await ProductModel.findOne(name);
+      const product = await this.getProduct(name);
 
       if (!product) {
         throw new Error("Product not found");
