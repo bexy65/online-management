@@ -1,5 +1,6 @@
 const ProductModel = require("../model/products");
 const DatabaseClient = require("./db");
+const CategoryModel = require("../model/category");
 
 class ProductService extends DatabaseClient {
   constructor() {
@@ -8,6 +9,11 @@ class ProductService extends DatabaseClient {
 
   async createProduct(name, description, price, category, imageUrl) {
     try {
+      const existingCategory = await CategoryModel.findOne({ name: category });
+      console.log(existingCategory);
+      if (!existingCategory) {
+        throw new Error("Category not found");
+      }
       const newProduct = new ProductModel({
         name,
         description,
@@ -39,9 +45,15 @@ class ProductService extends DatabaseClient {
         throw new Error("Product not found");
       }
 
-      Object.assign(product, newData);
+      const updatedProduct = await ProductModel.findOneAndUpdate(
+        { name: name },
+        newData,
+        {
+          new: true,
+        }
+      );
 
-      const updatedProduct = await product.save();
+      console.log(updatedProduct);
 
       return updatedProduct;
     } catch (error) {

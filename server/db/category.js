@@ -30,14 +30,21 @@ class CategoryService extends DatabaseClient {
 
   async updateCategory(name, newData) {
     try {
-      const category = await this.getCategory(name);
+      const category = await CategoryModel.findOne({ name: name });
+
       if (!category) {
-        throw new Error("Category not found");
+        throw new Error("Category not found!");
       }
-      Object.assign(category, newData);
-      const updatedCategory = await category.save();
+
+      const updatedCategory = await CategoryModel.findOneAndUpdate(
+        { name: name },
+        newData,
+        { new: true }
+      );
+
       return updatedCategory;
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }
