@@ -28,28 +28,26 @@ class ProductController {
   }
 
   async updateProduct(req, res) {
-    const { id, name, description, price, category, imageUrl } = req.body;
-
-    if (!id || !name || !description || !price || !category || !imageUrl) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
+    const { oldData, newData } = req.body;
+    const { nameOld } = oldData;
+    const { nameNew, descriptionNew, priceNew, categoryNew, imageUrlNew } =
+      newData;
 
     try {
-      const product = await Product.getProduct(name);
+      const product = await Product.getProduct(nameOld);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
 
       const dataToUpdate = {
-        id: id,
-        name: name,
-        description: description,
-        price: price,
-        category: category,
-        imageUrl: imageUrl,
+        name: nameNew,
+        description: descriptionNew,
+        price: priceNew,
+        category: categoryNew,
+        imageUrl: imageUrlNew,
       };
-
-      await Product.updateProduct(name, dataToUpdate);
+      console.log(dataToUpdate.name);
+      await Product.updateProduct(nameOld, dataToUpdate);
 
       res
         .status(200)
