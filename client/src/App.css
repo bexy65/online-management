@@ -1,6 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #root {
+  display: flex;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
