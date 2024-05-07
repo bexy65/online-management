@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import LoginButtons from "./loginButtons";
 import { LoginContext } from "./loginContext";
-import { Button, duration } from "@mui/material";
+import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 
