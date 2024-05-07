@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { LoginContext } from "./loginContext";
 import { Button } from "@mui/material";
-import { Divider } from "@mui/material";
 
 const LoginButtons = () => {
   const { isRegister, setIsRegister } = useContext(LoginContext);
