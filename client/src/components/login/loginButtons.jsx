@@ -16,7 +16,7 @@ const LoginButtons = () => {
         onClick={setReg}
         className="w-full md:w-1/2 self-center"
       >
-        {isRegister ? "Back to Login" : "Register"}
+        {isRegister ? "Back" : "Register"}
       </Button>
     </div>
   );
