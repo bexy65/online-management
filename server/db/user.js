@@ -10,7 +10,7 @@ class User extends DatabaseClient {
 
   async getUser(email) {
     try {
-      const user = await UserModel.findOne({ email: email });
+      const user = await UserModel.findOne({email: email});
       return user;
     } catch (error) {
       throw error;
