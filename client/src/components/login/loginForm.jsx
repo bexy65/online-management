@@ -18,19 +18,14 @@ const LoginForm = () => {
     updateEmail,
   } = useContext(LoginContext);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const notifyToast = (err) =>
     toast(err, { duration: 4000, position: "top-right" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setIsSubmitting(true);
-
     if (password.length < 8) {
       console.error("Password must be at least 8 characters long");
-      setIsSubmitting(false);
       return;
     }
 
@@ -51,14 +46,16 @@ const LoginForm = () => {
 
       if (response.status === 200 || response.status === 201) {
         notifyToast(response.data.message);
+        const token = response.data.token;
+        if (token) {
+          localStorage.setItem("token", token);
+        }
         setIsRegister(false);
       } else {
         notifyToast(response.data.message);
       }
     } catch (error) {
       notifyToast(error.response.data.message);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -99,7 +96,6 @@ const LoginForm = () => {
           color="primary"
           variant="contained"
           type="submit"
-          disabled={isSubmitting}
           className="w-full md:w-1/2 self-center"
         >
           {isRegister ? "Register" : "Login"}
