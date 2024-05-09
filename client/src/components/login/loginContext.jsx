@@ -9,6 +9,7 @@ const LoginContextProvider = ({ children }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [isAuth, setIsAuth] = useState(false);
 
   const updateUsername = (value) => {
     setUsername(value);
@@ -33,6 +34,8 @@ const LoginContextProvider = ({ children }) => {
         updateUsername,
         updatePassword,
         updateEmail,
+        isAuth,
+        setIsAuth,
       }}
     >
       {children}
