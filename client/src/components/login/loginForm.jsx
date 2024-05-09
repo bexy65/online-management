@@ -16,6 +16,7 @@ const LoginForm = () => {
     updateUsername,
     updatePassword,
     updateEmail,
+    setIsAuth,
   } = useContext(LoginContext);
 
   const notifyToast = (err) =>
@@ -49,6 +50,7 @@ const LoginForm = () => {
         const token = response.data.token;
         if (token) {
           localStorage.setItem("token", token);
+          setIsAuth(true);
         }
         setIsRegister(false);
       } else {
