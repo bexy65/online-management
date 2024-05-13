@@ -17,11 +17,9 @@ const Home = () => {
   return (
     <Layout>
       <div>
-        <div>
-          <Button variant="contained" onClick={logout}>
-            Logout
-          </Button>
-        </div>
+        <Button variant="contained" onClick={logout}>
+          Logout
+        </Button>
       </div>
     </Layout>
   );
