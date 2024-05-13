@@ -1,12 +1,15 @@
 import { Button } from "@mui/material";
+import Layout from "../components/layout/layout";
 
 const Contact = () => {
   return (
-    <div>
+    <Layout>
       <div>
-        <Button variant="contained">Logout</Button>
+        <div>
+          <Button variant="contained">Logout</Button>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

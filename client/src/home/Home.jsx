@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { LoginContext } from "../components/login/loginContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/layout/layout";
 
 const Home = () => {
   const { setIsAuth } = useContext(LoginContext);
@@ -14,13 +15,15 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <Layout>
       <div>
-        <Button variant="contained" onClick={logout}>
-          Logout
-        </Button>
+        <div>
+          <Button variant="contained" onClick={logout}>
+            Logout
+          </Button>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
