@@ -4,6 +4,7 @@ import Home from "./home/Home";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Login from "./login/login";
 import { LoginContextProvider } from "./components/login/loginContext";
+import Contact from "./contact/contact";
 
 // import { jwtDecode } from "jwt-decode";
 
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route element={<ProtectedRoutes />}>
               <Route element={<Home />} path="/" exact />
+              <Route element={<Contact />} path="/contact" />
             </Route>
             <Route element={<Login />} path="/login" />
           </Routes>
