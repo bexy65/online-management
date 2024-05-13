@@ -8,7 +8,7 @@ function ProtectedRoute({ children }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate.push("/login");
+      navigate("/login");
     } else {
       // Add the token to the headers of HTTP requests
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
