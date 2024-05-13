@@ -1,13 +1,14 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoginButtons from "./loginButtons";
 import { LoginContext } from "./loginContext";
-import { Button } from "@mui/material";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 
 const LoginForm = () => {
   const {
+    setIsAuth,
     isRegister,
     setIsRegister,
     username,
@@ -16,8 +17,9 @@ const LoginForm = () => {
     updateUsername,
     updatePassword,
     updateEmail,
-    setIsAuth,
   } = useContext(LoginContext);
+
+  const navigate = useNavigate();
 
   const notifyToast = (err) =>
     toast(err, { duration: 4000, position: "top-right" });
@@ -26,7 +28,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     if (password.length < 8) {
-      console.error("Password must be at least 8 characters long");
+      notifyToast("Password must be at least 8 characters long");
       return;
     }
 
@@ -46,13 +48,13 @@ const LoginForm = () => {
       }
 
       if (response.status === 200 || response.status === 201) {
-        notifyToast(response.data.message);
         const token = response.data.token;
         if (token) {
           localStorage.setItem("token", token);
           setIsAuth(true);
+          setIsRegister(false);
+          navigate("/");
         }
-        setIsRegister(false);
       } else {
         notifyToast(response.data.message);
       }
@@ -70,7 +72,7 @@ const LoginForm = () => {
       >
         {isRegister && (
           <TextField
-            label="Username"
+            placeholder="Username"
             type="text"
             margin="normal"
             className="w-full"
@@ -79,7 +81,7 @@ const LoginForm = () => {
           />
         )}
         <TextField
-          label="Email"
+          placeholder="Email"
           type="email"
           margin="normal"
           className="w-full"
@@ -87,7 +89,7 @@ const LoginForm = () => {
           onChange={(e) => updateEmail(e.target.value)}
         />
         <TextField
-          label="Password"
+          placeholder="Password"
           type="password"
           className="w-full"
           margin="normal"
