@@ -7,7 +7,7 @@ async function login(req, res) {
   try {
     const user = await User.getUser(email);
     const isAuth = await User.authUser(email, password);
-		
+
     if (!user || !isAuth) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
@@ -16,7 +16,7 @@ async function login(req, res) {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ token, message:"Logged in succesfully!" });
+    res.status(200).json({ token, message: "Logged in succesfully!" });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
